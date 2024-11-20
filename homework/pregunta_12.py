@@ -13,5 +13,33 @@ def pregunta_12():
 
     Rta/
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
-
     """
+    # Abrimos el archivo
+    with open("files/input/data.csv", "r") as file:
+        lines = file.readlines()
+
+    # Diccionario para almacenar las sumas
+    result = {}
+
+    for line in lines:
+        # Dividimos la línea por tabulaciones
+        columns = line.strip().split("\t")
+        column_1 = columns[0]  # Columna 1: letra
+        column_5 = columns[4]  # Columna 5: claves y valores separados por ":"
+
+        # Extraemos los valores de la columna 5 y los sumamos
+        sum_values = sum(int(item.split(":")[1]) for item in column_5.split(","))
+
+        # Sumamos al total de la letra en el diccionario
+        if column_1 in result:
+            result[column_1] += sum_values
+        else:
+            result[column_1] = sum_values
+
+    # Devolvemos el diccionario
+    return result
+
+
+# Llamar a la función para ver la salida
+print(pregunta_12())
+

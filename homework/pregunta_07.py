@@ -23,5 +23,31 @@ def pregunta_07():
      (7, ['A', 'C', 'E', 'D']),
      (8, ['E', 'D', 'E', 'A', 'B']),
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
-
     """
+    # Abrimos el archivo
+    with open("files/input/data.csv", "r") as file:
+        lines = file.readlines()
+
+    # Diccionario para agrupar las letras por el valor de la columna 2
+    grouped_data = {}
+
+    for line in lines:
+        # Dividimos cada línea por tabulaciones
+        columns = line.strip().split("\t")
+        letter = columns[0]  # Columna 0: Letra
+        value = int(columns[1])  # Columna 1: Número
+
+        # Añadimos al diccionario
+        if value not in grouped_data:
+            grouped_data[value] = []
+        grouped_data[value].append(letter)
+
+    # Ordenamos las claves (valores de columna 2) y construimos la lista final
+    result = sorted(grouped_data.items())
+
+    return result
+
+
+# Llamar la función para ver la salida
+print(pregunta_07())
+
